@@ -6,8 +6,8 @@ const formulario = document.getElementById('form-paciente');
 const tabela = document.getElementById('tabela-pacientes');
 
 // Função responsável por adicionar um paciente ao array
-function adicionarPaciente(nome, email, nascimento) {
-	const novoPaciente = { nome, email, nascimento };
+function adicionarPaciente(nome, email, nascimento, idade, telefone) {
+	const novoPaciente = { nome, email, nascimento, idade, telefone };
 	pacientes.push(novoPaciente);
 }
 
@@ -22,6 +22,8 @@ function renderizarTabela() {
       <td>${paciente.nome}</td>
       <td>${paciente.email}</td>
       <td>${formatarData(paciente.nascimento)}</td>
+      <td>${Number(paciente.idade)}</td>
+      <td>${Number(paciente.telefone)}</td>
     `;
 
 		tabela.appendChild(linha);
