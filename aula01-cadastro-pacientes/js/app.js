@@ -34,7 +34,7 @@ function emailRepetido(email) {
 // Função responsável por desenhar a tabela inteira a partir do array
 function renderizarTabela() {
 	tabela.innerHTML = ''; // limpa a tabela antes de redesenhar
-	contadorPacientes.textContent = pacientes.length;
+	contadorPacientes.textContent = pacientes.length; // atualiza o contador de pacientes
 
 	pacientes.forEach((paciente) => {
 		const linha = document.createElement('tr');
@@ -45,6 +45,7 @@ function renderizarTabela() {
       <td>${formatarData(paciente.nascimento)}</td>
       <td>${calcularIdade(paciente.nascimento)}</td>
 	  <td>${paciente.telefone}</td>
+	  <td><button class="btn-excluir">Excluir</button></td>
     `;
 
 		tabela.appendChild(linha);
@@ -94,3 +95,21 @@ formulario.addEventListener('submit', (event) => {
 
 	formulario.reset(); // limpa os campos do formulário
 });
+
+// Evento disparado quando um botão de excluir é clicado
+tabela.addEventListener('click', (event) => {
+	if (event.target.classList.contains('btn-excluir')) {
+		const linha = event.target.closest('tr');
+		const email = linha.cells[1].textContent; // pega o email da célula correspondente
+		removerPacientePorEmail(email); // remove o paciente do array
+		renderizarTabela(); // redesenha a tabela
+	}
+});
+
+function removerPacientePorEmail(email) {
+	const index = pacientes.findIndex((paciente) => paciente.email === email);
+
+	if (index !== -1) {
+		pacientes.splice(index, 1);
+	}
+}
